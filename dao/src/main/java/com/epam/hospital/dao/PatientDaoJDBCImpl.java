@@ -1,12 +1,13 @@
-package com.epam.hospital;
+package com.epam.hospital.dao;
 
+import com.epam.hospital.PatientDao;
 import com.epam.hospital.model.Patient;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class PatientDaoJDBCImpl implements PatientDao{
+public class PatientDaoJDBCImpl implements PatientDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 

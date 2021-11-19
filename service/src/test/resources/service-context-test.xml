@@ -8,8 +8,12 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="nurseDao" class="com.epam.hospital.NurseDaoJDBCImpl">
-        <constructor-arg ref="dataSource"/>
+    <bean id="nurseRowMapper" class="com.epam.hospital.mapper.NurseRowMapper"/>
+
+
+    <bean id="nurseDao" class="com.epam.hospital.dao.NurseDaoJDBCImpl">
+        <constructor-arg index="0" ref="namedParameterJdbcTemplate"/>
+
     </bean>
 
     <bean id="nurseService" class="com.epam.hospital.NurseServiceImpl">

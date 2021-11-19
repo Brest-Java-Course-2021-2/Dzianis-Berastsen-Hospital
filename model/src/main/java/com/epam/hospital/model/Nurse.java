@@ -3,10 +3,9 @@ package com.epam.hospital.model;
 import java.util.Objects;
 
 public class Nurse {
+
     private Integer id;
-
     private  String firstName;
-
     private String lastName;
 
     public Nurse() {
@@ -53,5 +52,14 @@ public class Nurse {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "Nurse{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

@@ -10,7 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:service-context-test.xml"})
@@ -23,7 +25,7 @@ class NurseServiceImplIT {
     public NurseServiceImplIT(@Autowired NurseServiceImpl nurseService) {
         this.nurseService = nurseService;
     }
-
+    //TODO refactor test logic
     @Test
     void findAll() {
         log.info("IN NurseServiceImplIT execute test findAll()");
@@ -46,10 +48,10 @@ class NurseServiceImplIT {
     void update() {
         log.info("IN NurseServiceImplIT execute test update()");
         assertNotNull(nurseService);
-        Nurse foundNurse = nurseService.findById(1);
+        Nurse foundNurse = nurseService.findById(1).get();
         Nurse nurse = new Nurse(1,"Ekaterina", "Ivanova");
         nurseService.update(nurse);
-        Nurse updatedNurse = nurseService.findById(1);
+        Nurse updatedNurse = nurseService.findById(1).get();
         assertNotEquals(foundNurse, updatedNurse);
     }
 

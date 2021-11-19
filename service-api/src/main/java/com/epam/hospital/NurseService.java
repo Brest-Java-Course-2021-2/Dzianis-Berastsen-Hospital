@@ -3,6 +3,7 @@ package com.epam.hospital;
 import com.epam.hospital.model.Nurse;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface NurseService {
 
@@ -14,5 +15,5 @@ public interface NurseService {
 
     Integer delete(Integer nurseId);
 
-    Nurse findById(Integer nurseId);
+    Optional<Nurse> findById(Integer nurseId);
 }

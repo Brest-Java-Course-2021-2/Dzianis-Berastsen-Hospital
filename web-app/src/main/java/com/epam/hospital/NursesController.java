@@ -1,6 +1,5 @@
 package com.epam.hospital;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +9,7 @@ public class NursesController {
 
     private final NurseService nurseService;
 
-    public NursesController(NurseService nurseService) {
+    public NursesController(final NurseService nurseService) {
         this.nurseService = nurseService;
     }
 

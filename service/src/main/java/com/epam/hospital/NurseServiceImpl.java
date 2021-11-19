@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NurseServiceImpl implements NurseService {
@@ -13,7 +14,7 @@ public class NurseServiceImpl implements NurseService {
     private final NurseDao nurseDao;
     private static final Logger log = LogManager.getLogger(NurseServiceImpl.class);
 
-    public NurseServiceImpl(NurseDao nurseDao) {
+    public NurseServiceImpl(final NurseDao nurseDao) {
         this.nurseDao = nurseDao;
     }
 
@@ -42,7 +43,7 @@ public class NurseServiceImpl implements NurseService {
     }
 
     @Override
-    public Nurse findById(Integer nurseId) {
+    public Optional<Nurse> findById(Integer nurseId) {
         log.info("IN NurseServiceImpl findById() find nurse with id: {}", nurseId);
         return nurseDao.findById(nurseId);
     }

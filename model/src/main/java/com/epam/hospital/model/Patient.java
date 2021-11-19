@@ -4,16 +4,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Patient {
+
     private Integer id;
-
     private String firstName;
-
     private String lastName;
-
     private String diagnosis;
-
     private LocalDateTime illnessDate;
-
     private Integer nursesId;
 
     public Integer getId() {

@@ -10,7 +10,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-jdbc-conf.xml"})
@@ -18,47 +23,56 @@ import static org.junit.jupiter.api.Assertions.*;
 public class NurseDaoJDBCImplIT {
 
     private static final Logger log = LogManager.getLogger(NurseDaoJDBCImplIT.class);
-    private NurseDaoJDBCImpl nurseDaoJDBC;
+    private final NurseDao nurseDaoJDBC;
 
-
-    public NurseDaoJDBCImplIT(@Autowired NurseDao nurseDao) {
-        this.nurseDaoJDBC = (NurseDaoJDBCImpl) nurseDao;
+    @Autowired
+    public NurseDaoJDBCImplIT(final NurseDao nurseDao) {
+        this.nurseDaoJDBC = nurseDao;
     }
 
     @Test
-    void findAll() {
+    void shouldReturnAllNurses() {
         log.info("Execute nurseDao test findAll()");
         assertNotNull(nurseDaoJDBC);
-        assertNotNull(nurseDaoJDBC.findAll());
+        List<Nurse> allNurses = nurseDaoJDBC.findAll();
+        assertNotNull(allNurses);
+        assertEquals(3, allNurses.size());
     }
 
     @Test
-    void create() {
+    void shouldCreateNurseSuccessfully() {
         log.info("Execute nurseDao test create()");
         assertNotNull(nurseDaoJDBC);
-        int nursesSizeBefore = nurseDaoJDBC.findAll().size();
-        Nurse nurse = new Nurse(5,"Tatsiana", "Levchuk");
-        Integer nurseId = nurseDaoJDBC.create(nurse);
+        Nurse expectedNurse = new Nurse(null,"Tatsiana", "Levchuk");
+        Integer nurseId = nurseDaoJDBC.create(expectedNurse);
         assertNotNull(nurseId);
-        assertEquals(nursesSizeBefore, nurseDaoJDBC.findAll().size()-1);
+        expectedNurse.setId(nurseId);
+        Optional<Nurse> actualNurse = nurseDaoJDBC.findById(nurseId);
+        assertTrue(actualNurse.isPresent());
+        assertEquals(expectedNurse, actualNurse.get());
     }
 
     @Test
     void findById() {
         log.info("Execute nurseDao test findById()");
         assertNotNull(nurseDaoJDBC);
-        assertNotNull(nurseDaoJDBC.findById(1));
+        Nurse expectedNurse = new Nurse(1, "Eigenia", "Liashuk");
+        Optional<Nurse> actualNurse = nurseDaoJDBC.findById(1);
+        assertTrue(actualNurse.isPresent());
+        assertEquals(expectedNurse, actualNurse.get());
     }
 
     @Test
     void update() {
         log.info("Execute nurseDao test update()");
         assertNotNull(nurseDaoJDBC);
-        Nurse foundNurse = nurseDaoJDBC.findById(1);
-        Nurse nurse = new Nurse(1,"Ekaterina", "Ivanova");
-        nurseDaoJDBC.update(nurse);
-        Nurse updatedNurse = nurseDaoJDBC.findById(1);
-        assertNotEquals(foundNurse, updatedNurse);
+        Nurse expectedNurse = nurseDaoJDBC.findById(1).get();
+        Nurse actualNurse = new Nurse(1,"Ekaterina", "Ivanova");
+        expectedNurse.setFirstName("Ekaterina");
+        expectedNurse.setLastName("Ivanova");
+        nurseDaoJDBC.update(actualNurse);
+        actualNurse = nurseDaoJDBC.findById(1).get();
+        assertEquals(expectedNurse, actualNurse);
     }
 
     /*@Test

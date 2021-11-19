@@ -21,20 +21,23 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="nurseDao" class="com.epam.hospital.NurseDaoJDBCImpl">
-           <constructor-arg ref="dataSource"/>
+    <bean id="nurseRowMapper" class="com.epam.hospital.mapper.NurseRowMapper"/>
+
+    <bean id="nurseDao" class="com.epam.hospital.dao.NurseDaoJDBCImpl">
+        <constructor-arg index="0" ref="namedParameterJdbcTemplate"/>
+        <constructor-arg index="1" ref="nurseRowMapper"/>
     </bean>
 
     <bean id="nurseService" class="com.epam.hospital.NurseServiceImpl">
-        <constructor-arg name="nurseDao" ref="nurseDao" />
+        <constructor-arg name="nurseDao" ref="nurseDao"/>
     </bean>
 
-       <bean id="templateResolver"
+    <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
-        <property name="prefix" value="/WEB-INF/templates/html/" />
-        <property name="suffix" value=".html" />
-        <property name="templateMode" value="HTML" />
-        <property name="cacheable" value="false" />
+        <property name="prefix" value="/WEB-INF/templates/html/"/>
+        <property name="suffix" value=".html"/>
+        <property name="templateMode" value="HTML"/>
+        <property name="cacheable" value="false"/>
     </bean>
 
 
@@ -42,14 +45,14 @@
           class="org.thymeleaf.spring5.SpringTemplateEngine">
         <property name="templateResolvers">
             <set>
-                <ref bean="templateResolver" />
+                <ref bean="templateResolver"/>
             </set>
         </property>
     </bean>
 
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
-        <property name="templateEngine" ref="templateEngine" />
-        <property name="characterEncoding" value="UTF-8" />
+        <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="UTF-8"/>
     </bean>
 
 </beans>
