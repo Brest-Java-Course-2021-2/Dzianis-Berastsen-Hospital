@@ -24,15 +24,14 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" th:href="@{/patients}">Patients</a>
+                        <a class="nav-link" th:href="@{/patients}" href="patients.html">Patients</a>
 
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-nurses-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                                aria-selected="false" th:onclick="relocatePatients()" onclick="relocateNurses()">Nurses</button>
+                        <a class="nav-link active" th:href="@{/nurses}" href="nurses.html">Nurses</a>
                     </li>
                     <li class="nav-item">
-                        <a href="nurse.html"
+                        <a th:href="@{/nurse}" href="nurse.html"
                            class="btn btn-light"
                            title="Add nurse">
                             <i class="bi-plus"></i>&plus;<span class="d-none d-sm-inline"> Add new nurse</span>
@@ -60,10 +59,41 @@
                     <tr th:each="nurse : ${nurses}">
                         <td th:text="${nurse.getFirstName}">Mark</td>
                         <td th:text="${nurse.getLastName}">Otto</td>
-                        <td>delete</td>
+                        <td class="text-end">
+                            <a class="btn-sm btn-primary text-decoration-none"
+                               href="nurse.html"
+                               th:href="@{|/nurse/${nurse.id}|}"
+                               title="Edit nurse">
+                                <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                            <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
+                                  th:attr="data-id=${nurse.id},data-name=${nurse.firstName}">
+                                    <a href="#" class="btn-sm btn-danger text-decoration-none"
+                                       title="delete nurse"><i class="bi-x"></i><span
+                                            class="d-none d-md-inline">&nbsp;Delete</span>
+                                    </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <h5 class="modal-title" id="exampleModalLabel">Delete nurse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please confirm delete
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

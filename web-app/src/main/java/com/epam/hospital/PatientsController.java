@@ -11,4 +11,9 @@ public class PatientsController {
     public String patients(Model model) {
         return "patients";
     }
+
+    @GetMapping(value = "/patient")
+    public String patient(Model model) {
+        return "patient";
+    }
 }
