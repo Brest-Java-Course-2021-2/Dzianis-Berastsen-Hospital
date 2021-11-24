@@ -5,6 +5,9 @@ import com.epam.hospital.mapper.NurseRowMapper;
 import com.epam.hospital.model.Nurse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -17,6 +20,7 @@ import java.util.Optional;
 public class NurseDaoJDBCImpl implements NurseDao {
 
     private static final Logger log = LogManager.getLogger(NurseDaoJDBCImpl.class);
+
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final NurseRowMapper nurseRowMapper;
 

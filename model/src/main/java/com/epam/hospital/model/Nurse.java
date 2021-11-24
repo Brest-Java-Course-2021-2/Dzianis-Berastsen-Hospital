@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Nurse {
 
     private Integer id;
-    private  String firstName;
+    private String firstName;
     private String lastName;
 
     public Nurse() {

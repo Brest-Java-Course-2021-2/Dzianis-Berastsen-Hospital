@@ -15,7 +15,7 @@ CREATE TABLE patient(
     last_name varchar(50) NOT NULL,
     diagnosis varchar(100),
     illness_date date NOT NULL,
-    nurse_id int NOT NULL,
+    nurse_id int,
     CONSTRAINT patient_pk PRIMARY KEY (id),
     CONSTRAINT patient_nurse_fk FOREIGN KEY (nurse_id) REFERENCES nurse(id)
 );
